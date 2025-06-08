@@ -37,11 +37,7 @@ function playRound(){
 }
 
 function playGame(){
-    let n = 5;
-    while(n--){playRound();}
-    if(humanScore > computerScore) console.log('You Win!');
-    else if (humanScore < computerScore) console.log('You Lose!');
-    else console.log('It\'s a tie');
+    
 }
 
 let humanScore = 0;

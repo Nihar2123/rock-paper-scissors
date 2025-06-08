@@ -26,7 +26,7 @@ function getHumanChoice(callback){
 const computerDisplay = document.querySelector('#computer');
 const humanDisplay = document.querySelector('#human');
 
-function playRound(){
+function playRound(nextRound){
     getHumanChoice(function(humanChoice){
         let computerChoice = getComputerChoice();
         if(computerChoice === humanChoice){
@@ -50,17 +50,31 @@ function playRound(){
         console.log('Our Score: ' + humanScore + ' Computer: ' + computerScore);
         computerDisplay.textContent = computerScore;
         humanDisplay.textContent = humanScore;
+
+        if(typeof nextRound === 'function') nextRound();
     });
 }
 
 function playGame(){
-    while(humanScore < 5 && computerScore < 5){
-        playRound();
+    humanScore = 0;
+    computerScore = 0;
+
+    function next(){
+        if(humanScore < 5 && computerScore < 5){
+            playRound(next);
+        }
+        else{
+            if(humanScore === computerScore) console.log('It\'s a tie');
+            else if(humanScore > computerScore) console.log('You Win!');
+            else console.log('You Lose!');
+        }
     }
+
+    next();
 }
 
 let humanScore = 0;
 let computerScore = 0;
 let s1 = 'You Lose! ', s2 = 'You Win! ';
 let p1 = 'Rock beats Scissors', p2 = 'Scissors beats Paper', p3 = 'Paper beats Rock';
-//playGame();
+playGame();
